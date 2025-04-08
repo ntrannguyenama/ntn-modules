@@ -20,7 +20,11 @@ variable "environment" {
 }
 
 variable "service_plan" {
-  type = any
+   type = object({
+       sku_name      = optional(string)
+       os_type       = optional(string)
+       worker_count = optional(number)
+     })
 }
 
 variable "tags" {
