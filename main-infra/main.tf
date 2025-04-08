@@ -66,6 +66,15 @@ module "key_vault" {
   tags = local.tags
 }
 
+module "service_plan" {
+  source = "../service-plan"
+  resource_group_name = module.resource_group.name
+  location           = local.location
+  app_name           = var.app_name
+  environment        = var.environment
+}
+
+
 module "app_service" {
   source = "../app-service"
 
@@ -84,6 +93,7 @@ module "app_service" {
   frontend_url       = local.frontend_url
   web_app            = each.value
   tags               = local.tags
+  service_plan_id = module.service_plan.app_service_plan_id
 }
 
 resource "random_string" "sql_admin_username" {

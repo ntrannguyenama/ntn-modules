@@ -74,3 +74,7 @@ variable "tags" {
   description = "Tags to apply to all resources"
   default     = {}
 }
+
+variable "service_plan_id" {
+  type = any
+}
