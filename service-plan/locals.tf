@@ -7,7 +7,7 @@ locals {
          Environment = var.environment
          Application = var.app_name
          Terraform   = "true"
-         ManagedBy   = "terraform"
+         ManagedBy   = "Terraform"
      }
 
      merged_tags = merge(local.base_tags, var.tags)
