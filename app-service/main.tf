@@ -23,6 +23,10 @@ resource "azurerm_linux_web_app" "main" {
      }
      always_on = false
      app_command_line = var.web_app.app_command_line
+     cors {
+      allowed_origins = local.allowed_origins
+      support_credentials = local.support_credentials
+     }
    }
    app_settings = var.web_app.app_settings
    identity {
