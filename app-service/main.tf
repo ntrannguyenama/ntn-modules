@@ -12,6 +12,9 @@ resource "azurerm_service_plan" "main" {
 }
 
 resource "azurerm_linux_web_app" "main" {
+  for_each = {
+    for web_app in var.web_app : web_app.name => web_app
+  }
   name                = module.naming_app_service.resource_name
   resource_group_name = var.resource_group_name
   location            = var.location
