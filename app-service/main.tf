@@ -13,7 +13,7 @@ resource "azurerm_service_plan" "main" {
 
 resource "azurerm_linux_web_app" "main" {
   for_each = {
-    for web_app in var.web_app : "${module.naming_app_service.resource_name}-${var.var.web_app.suffix}" => web_app
+    for web_app in var.web_app : "${module.naming_app_service.resource_name}-${var.web_app.suffix}" => web_app
   }
 
    name                = module.naming_app_service.resource_name
