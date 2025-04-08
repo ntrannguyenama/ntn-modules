@@ -2,7 +2,7 @@ locals {
     version = var.sql.version != null ? var.sql.version : "12.0"
     administrator_login = var.sql.administrator_login != null ? var.sql.administrator_login : "sqladmin"
     minimum_tls_version = var.sql.minimum_tls_version != null ? var.sql.minimum_tls_version : "1.2"
-    public_network_access_enabled = var.sql.public_network_access_enabled != null ? var.sql.public_network_access_enabled : false
+    public_network_access_enabled = var.sql.public_network_access_enabled != null ? var.sql.public_network_access_enabled : true
     outbound_network_restriction_enabled = var.sql.outbound_network_restriction_enabled != null ? var.sql.outbound_network_restriction_enabled : true
 
     sku_name = var.sql.sku_name != null ? var.sql.sku_name : "Basic"

@@ -52,7 +52,7 @@ resource "azurerm_storage_account" "web" {
   allow_nested_items_to_be_public = local.allow_nested_items_to_be_public
 
   network_rules {
-    default_action = "Deny"
+    default_action = "Allow"
     bypass         = ["AzureServices"]
     virtual_network_subnet_ids = [var.subnet_id]
   }
