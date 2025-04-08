@@ -81,7 +81,7 @@ module "app_service" {
   key_vault_id       = module.key_vault.id
   key_vault_url      = module.key_vault.uri
   frontend_url       = local.frontend_url
-  web_app            = web_app
+  web_app            = each.value
   tags               = local.tags
 }
 
