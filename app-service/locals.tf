@@ -15,6 +15,6 @@ locals {
          ManagedBy   = "terraform"
      }
    
-     merged_tags = merge(base_tags, var.tags)
+     merged_tags = merge(local.base_tags, var.tags)
     }
  }
