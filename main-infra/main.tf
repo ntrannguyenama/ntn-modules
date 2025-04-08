@@ -73,6 +73,7 @@ module "app_service" {
     for web_app in var.web_app : "${module.naming_app_service.resource_name}-${web_app.suffix}" => web_app
   }
 
+  name = "${module.naming_app_service.resource_name}-${web_app.suffix}"
   resource_group_name = module.resource_group.name
   location           = local.location
   app_name           = var.app_name

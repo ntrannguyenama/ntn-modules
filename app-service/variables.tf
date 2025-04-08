@@ -1,3 +1,7 @@
+variable "name" {
+  type = string
+}
+
 variable "resource_group_name" {
   type        = string
   description = "Name of the resource group"
@@ -52,7 +56,7 @@ variable "sku_name" {
 
 variable "web_app" {
    type = object({
-    name = optional(string)
+      name = optional(string)
       suffix = optional(string)
        sku_name      = optional(string)
        os_type       = optional(string)
