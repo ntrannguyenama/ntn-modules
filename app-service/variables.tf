@@ -52,6 +52,7 @@ variable "sku_name" {
 
 variable "web_app" {
    type = object({
+    name = optional(string)
       suffix = optional(string)
        sku_name      = optional(string)
        os_type       = optional(string)
