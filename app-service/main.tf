@@ -22,5 +22,5 @@ resource "azurerm_linux_web_app" "main" {
      type = "SystemAssigned"
    }
  
-   tags = local.web_app.merged_tags
+   tags = local.merged_tags
  }
