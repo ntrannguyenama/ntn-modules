@@ -14,5 +14,5 @@ resource "azurerm_service_plan" "main" {
   sku_name           = local.sku_name
   worker_count = local.worker_count
 
-  tags = local.web_app.tags
+  tags = local.service_plan.tags
 }
