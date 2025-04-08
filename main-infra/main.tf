@@ -78,7 +78,7 @@ module "service_plan" {
   source = "../service-plan"
 
   for_each = {
-    for web_app in var.web_app : "${module.naming_app_service.resource_name}${service_plan.suffix}" => web_app
+    for service_plan in var.service_plan : "${module.naming_app_service.resource_name}${service_plan.suffix}" => web_app
   }
 
   name = each.key
