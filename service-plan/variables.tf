@@ -22,3 +22,9 @@ variable "environment" {
 variable "service_plan" {
   type = any
 }
+
+variable "tags" {
+  type        = map(string)
+  description = "Tags to apply to all resources"
+  default     = {}
+}
