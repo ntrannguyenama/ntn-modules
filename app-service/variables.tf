@@ -51,14 +51,14 @@ variable "sku_name" {
 }
 
 variable "web_app" {
-  type = object({
+  type = list(object({
       sku_name      = optional(string)
       os_type       = optional(string)
       app_settings  = optional(any)
       node_version  = optional(string)
       app_command_line = string
       worker_count = optional(number)
-    })
+    }))
 }
 
 variable "tags" {
