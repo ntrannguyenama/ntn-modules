@@ -12,6 +12,10 @@ resource "azurerm_service_plan" "main" {
 }
 
 resource "azurerm_linux_web_app" "main" {
+  for_each = {
+    for web_app in var.web_app : web_app.name => web_app
+  }
+
    name                = module.naming_app_service.resource_name
    resource_group_name = var.resource_group_name
    location            = var.location
@@ -22,10 +26,10 @@ resource "azurerm_linux_web_app" "main" {
        node_version = local.node_version
      }
      always_on = false
-     app_command_line = var.web_app.app_command_line
+     app_command_line = web_app.app_command_line
      cors {
-      allowed_origins = local.allowed_origins
-      support_credentials = local.support_credentials
+      allowed_origins = web_app.allowed_origins
+      support_credentials = web_app.support_credentials
      }
    }
    app_settings = var.web_app.app_settings
