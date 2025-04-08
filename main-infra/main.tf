@@ -8,6 +8,14 @@ locals {
   frontend_url = "https://${var.app_name}-${var.environment}.azurewebsites.net"
 }
 
+module "naming_app_service" {
+  source        = "../naming"
+  app_name      = var.app_name
+  environment   = var.environment
+  suffix        = null
+  resource_type = "app"
+}
+
 module "resource_group" {
   source = "../resource-group"
 
