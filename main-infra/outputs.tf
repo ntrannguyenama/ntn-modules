@@ -3,10 +3,10 @@ output "resource_group_name" {
   description = "Name of the resource group"
 }
 
-output "app_service_hostname" {
-  value       = module.app_service.app_service_hostname
-  description = "Hostname of the App Service"
-}
+# output "app_service_hostname" {
+#   value       = module.app_service.app_service_hostname
+#   description = "Hostname of the App Service"
+# }
 
 output "key_vault_uri" {
   value       = module.key_vault.uri
