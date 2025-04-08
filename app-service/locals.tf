@@ -4,6 +4,7 @@ locals {
     node_version = "20-lts"#var.web_app.node_version != null ? var.web_app.node_version : "18-lts"
     app_command_line = "node ./index.js"#var.web_app.app_command_line != null ? var.web_app.app_command_line : "#"
     worker_count = 1 #var.web_app.worker_count != null ? var.web_app.worker_count : 1
+    
 
     base_tags = {
         Environment = var.environment

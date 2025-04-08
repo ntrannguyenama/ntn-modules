@@ -25,7 +25,7 @@ resource "azurerm_linux_web_app" "main" {
       node_version = local.node_version
     }
     always_on = false
-    app_command_line = var.web_app.app_command_line
+    app_command_line = local.app_command_line
   }
   app_settings = var.web_app.app_settings
   identity {
