@@ -16,6 +16,14 @@ module "naming_app_service" {
   resource_type = "app"
 }
 
+module "naming_app_service_plan" {
+  source        = "../naming"
+  app_name      = var.app_name
+  environment   = var.environment
+  suffix        = null
+  resource_type = "appsp"
+}
+
 module "resource_group" {
   source = "../resource-group"
 
@@ -69,7 +77,12 @@ module "key_vault" {
 module "service_plan" {
   source = "../service-plan"
 
-  service_plan = var.service_plan
+  for_each = {
+    for web_app in var.web_app : "${module.naming_app_service.resource_name}${service_plan.suffix}" => web_app
+  }
+
+  name = each.key
+  service_plan = each.value
   resource_group_name = module.resource_group.name
   location           = local.location
   app_name           = var.app_name
