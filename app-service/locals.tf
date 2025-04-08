@@ -7,6 +7,7 @@ locals {
     #  worker_count = var.web_app.worker_count != null ? var.web_app.worker_count : 1
      allowed_origins = var.web_app.allowed_origins != null ? var.web_app.allowed_origins : ["*"]
      support_credentials = var.web_app.support_credentials != null ? var.web_app.support_credentials : false
+    }
  
      base_tags = {
          Environment = var.environment
@@ -15,6 +16,5 @@ locals {
          ManagedBy   = "terraform"
      }
    
-     merged_tags = merge(local.web_app.base_tags, var.tags)
-    }
+     merged_tags = merge(local.base_tags, var.tags)
  }
