@@ -4,7 +4,7 @@ resource "azurerm_mssql_server" "main" {
   location                     = var.location
   version                      = local.version
   administrator_login          = local.administrator_login
-  administrator_login_password = random_password.sql_admin.result
+  administrator_login_password = "7*6Z9Y<VgAzX"
   minimum_tls_version         = local.minimum_tls_version
 
   public_network_access_enabled = local.public_network_access_enabled
@@ -18,7 +18,7 @@ resource "azurerm_mssql_server" "main" {
 }
 
 resource "azurerm_mssql_database" "main" {
-  name                = local.database_name
+  name                = "main"
   server_id           = azurerm_mssql_server.main.id
   sku_name            = local.sku_name
   max_size_gb         = local.max_size_gb
