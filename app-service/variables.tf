@@ -51,7 +51,7 @@ variable "sku_name" {
 }
 
 variable "web_app" {
-   type = list(object({
+   type = object({
     name = optional(string)
       suffix = optional(string)
        sku_name      = optional(string)
@@ -62,7 +62,7 @@ variable "web_app" {
        worker_count = optional(number)
        support_credentials = optional(bool)
        allowed_origins = optional(any)
-     }))
+     })
  }
 
 variable "tags" {
