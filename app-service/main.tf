@@ -4,11 +4,11 @@ resource "azurerm_service_plan" "main" {
   name                = module.naming_app_service_plan.resource_name
   resource_group_name = var.resource_group_name
   location            = var.location
-  os_type            = local.os_type
-  sku_name           = local.sku_name
-  worker_count = local.worker_count
+  os_type            = local.web_app.os_type
+  sku_name           = local.web_app.sku_name
+  worker_count = local.web_app.worker_count
 
-  tags = local.tags
+  tags = local.web_app.tags
 }
 
 resource "azurerm_linux_web_app" "main" {
@@ -23,13 +23,13 @@ resource "azurerm_linux_web_app" "main" {
  
    site_config {
      application_stack {
-       node_version = local.node_version
+       node_version = local.web_app.node_version
      }
      always_on = false
-     app_command_line = local.app_command_line
+     app_command_line = local.web_app.app_command_line
      cors {
-      allowed_origins = local.allowed_origins
-      support_credentials = local.support_credentials
+      allowed_origins = local.web_app.allowed_origins
+      support_credentials = local.web_app.support_credentials
      }
    }
    app_settings = var.web_app.app_settings
@@ -37,5 +37,5 @@ resource "azurerm_linux_web_app" "main" {
      type = "SystemAssigned"
    }
  
-   tags = local.tags
+   tags = local.web_app.tags
  }

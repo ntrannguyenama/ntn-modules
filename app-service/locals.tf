@@ -1,4 +1,5 @@
 locals {
+    web_app = {
     suffix = var.web_app.suffix
      sku_name = var.web_app.sku_name != null ? var.web_app.sku_name : "B1"
      os_type = var.web_app.os_type != null ? var.web_app.os_type : "Linux"
@@ -15,5 +16,6 @@ locals {
          ManagedBy   = "terraform"
      }
    
-     tags = merge(local.base_tags, var.tags)
+     tags = var.tags
+    }
  }
