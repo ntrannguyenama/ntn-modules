@@ -58,6 +58,8 @@ variable "web_app" {
        node_version  = optional(string)
        app_command_line = string
        worker_count = optional(number)
+       support_credentials = optional(bool)
+       allowed_origins = optional(any)
      })
  }
 
