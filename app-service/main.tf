@@ -26,10 +26,10 @@ resource "azurerm_linux_web_app" "main" {
        node_version = local.node_version
      }
      always_on = false
-     app_command_line = web_app.app_command_line
+     app_command_line = local.app_command_line
      cors {
-      allowed_origins = web_app.allowed_origins
-      support_credentials = web_app.support_credentials
+      allowed_origins = local.allowed_origins
+      support_credentials = local.support_credentials
      }
    }
    app_settings = var.web_app.app_settings
