@@ -3,5 +3,12 @@ locals {
      os_type = var.service_plan.os_type != null ? var.service_plan.os_type : "Linux"
      worker_count = var.service_plan.worker_count != null ? var.service_plan.worker_count : 1 
 
-     tags = var.tags
+     base_tags = {
+         Environment = var.environment
+         Application = var.app_name
+         Terraform   = "true"
+         ManagedBy   = "terraform"
+     }
+
+     tags = merge(base_tags, var.tags)
 }
