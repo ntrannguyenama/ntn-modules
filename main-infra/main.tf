@@ -81,7 +81,7 @@ module "app_service" {
   source = "../app-service"
 
   for_each = {
-    for web_app in var.web_app : "${module.naming_app_service.resource_name}-${web_app.suffix}" => web_app
+    for web_app in var.web_app : "${module.naming_app_service.resource_name}${web_app.suffix}" => web_app
   }
 
   name = each.key
