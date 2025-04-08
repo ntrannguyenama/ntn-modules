@@ -60,11 +60,6 @@ module "key_vault" {
 
 module "app_service" {
   source = "../app-service"
-  for_each = {
-    for k in var.web_app : "app_service" => k
-  }
-
-  web_app = each.value
 
   resource_group_name = module.resource_group.name
   location           = local.location
@@ -74,6 +69,7 @@ module "app_service" {
   key_vault_id       = module.key_vault.id
   key_vault_url      = module.key_vault.uri
   frontend_url       = local.frontend_url
+  web_app            = var.web_app
   tags               = local.tags
 }
 
