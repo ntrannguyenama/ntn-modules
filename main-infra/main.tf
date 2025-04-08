@@ -108,7 +108,7 @@ module "app_service" {
   frontend_url       = local.frontend_url
   web_app            = each.value
   tags               = local.tags
-  service_plan_id = module.service_plan.app_service_plan_id
+  service_plan_id = module.service_plan[each.value.service_plan_key].app_service_plan_id
 }
 
 resource "random_string" "sql_admin_username" {
