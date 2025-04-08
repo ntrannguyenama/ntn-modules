@@ -81,6 +81,10 @@ variable "storage_account" {
   type = any
 }
 
+variable "service_plan" {
+  type = any
+}
+
 variable "nsg_rules" {
   type = list(object({
     name                       = string

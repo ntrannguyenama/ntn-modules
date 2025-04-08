@@ -68,6 +68,8 @@ module "key_vault" {
 
 module "service_plan" {
   source = "../service-plan"
+
+  service_plan = var.service_plan
   resource_group_name = module.resource_group.name
   location           = local.location
   app_name           = var.app_name
