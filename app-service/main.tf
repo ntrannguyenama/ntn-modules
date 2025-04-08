@@ -13,10 +13,10 @@ resource "azurerm_service_plan" "main" {
 
 resource "azurerm_linux_web_app" "main" {
   for_each = {
-    for web_app in var.web_app : local.web_app.name => web_app
+    for web_app in var.web_app : "${module.naming_app_service.resource_name}-${web_app.suffix}" => web_app
   }
 
-   name                = each.value.name
+   name                = each.key
    resource_group_name = var.resource_group_name
    location            = var.location
    service_plan_id     = azurerm_service_plan.main.id
