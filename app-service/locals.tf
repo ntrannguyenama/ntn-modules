@@ -1,6 +1,6 @@
 locals {
     web_app = {
-    name = module.naming_app_service.resource_name
+    name = "${module.naming_app_service.resource_name}-${var.web_app.suffix}"
      sku_name = var.web_app.sku_name != null ? var.web_app.sku_name : "B1"
      os_type = var.web_app.os_type != null ? var.web_app.os_type : "Linux"
      node_version = var.web_app.node_version != null ? var.web_app.node_version : "18-lts"
