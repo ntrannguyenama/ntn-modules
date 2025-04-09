@@ -185,3 +185,12 @@ module "ai" {
 */
 
 data "azurerm_client_config" "current" {}
+
+resource "azurerm_key_vault_access_policy" "webapp" {
+  key_vault_id = module.key_vault.key_vault_id
+
+  tenant_id = data.azurerm_client_config.current.tenant_id
+  object_id = azurerm_linux_web_app.main.identity[0].principal_id
+
+  secret_permissions = ["get"]
+}

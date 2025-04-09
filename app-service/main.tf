@@ -18,9 +18,19 @@ resource "azurerm_linux_web_app" "main" {
      }
    }
    app_settings = var.web_app.app_settings
+
    identity {
      type = "SystemAssigned"
    }
  
    tags = local.merged_tags
  }
+
+ resource "azurerm_key_vault_access_policy" "webapp" {
+  key_vault_id = var.key_vault_id
+
+  tenant_id = data.azurerm_client_config.current.tenant_id
+  object_id = azurerm_linux_web_app.main.identity[0].principal_id
+
+  secret_permissions = ["get"]
+}
