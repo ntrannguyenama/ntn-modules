@@ -32,5 +32,5 @@ resource "azurerm_linux_web_app" "main" {
   tenant_id = data.azurerm_client_config.current.tenant_id
   object_id = azurerm_linux_web_app.main.identity[0].principal_id
 
-  secret_permissions = ["get"]
+  secret_permissions = ["Get"]
 }
