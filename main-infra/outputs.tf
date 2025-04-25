@@ -13,6 +13,11 @@ output "key_vault_uri" {
   description = "URI of the Key Vault"
 }
 
+output "key_vault" {
+  value       = module.key_vault
+  description = "URI of the Key Vault"
+}
+
 output "storage_account_name" {
   value       = module.storage.name
   description = "Name of the Storage Account"

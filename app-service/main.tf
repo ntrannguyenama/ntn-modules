@@ -22,6 +22,18 @@ resource "azurerm_linux_web_app" "main" {
    identity {
      type = "SystemAssigned"
    }
+
+  logs {
+    application_logs {
+      file_system_level = "Error"
+    }
+    http_logs {
+      file_system {
+        retention_in_days = 0
+        retention_in_mb   = 100
+      }
+    }
+  }
  
    tags = local.merged_tags
  }
