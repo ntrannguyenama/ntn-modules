@@ -61,6 +61,7 @@ variable "subnets" {
     {
       name           = "backend"
       address_prefix = "10.0.2.0/24"
+      private_endpoint_network_policies_enabled = true
     }
   ]
 }
@@ -82,6 +83,10 @@ variable "storage_account" {
 }
 
 variable "service_plan" {
+  type = any
+}
+
+variable "dns_zone" {
   type = any
 }
 

@@ -44,12 +44,15 @@ variable "subnets" {
     {
       name           = "backend"
       address_prefix = "10.0.2.0/24"
-    },
-    {
-      name = "endpoint"
-      address_prefix = "10.0.3.0/27"
     }
   ]
+}
+
+variable "dns_zone" {
+  type = list(object({
+    name = string
+    private_dns_name = string
+  }))
 }
 
 variable "nsg_rules" {

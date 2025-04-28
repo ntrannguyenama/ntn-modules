@@ -43,6 +43,7 @@ module "network" {
   tags                = local.tags
   address_space       = var.address_space
   subnets            = var.subnets
+  dns_zone = var.dns_zone
 }
 
 module "storage" {
