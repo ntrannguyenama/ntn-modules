@@ -7,6 +7,7 @@ resource "azurerm_linux_web_app" "main" {
    service_plan_id     = var.service_plan_id
  
    site_config {
+    minimum_tls_version = "1.2"
      application_stack {
        node_version = local.web_app.node_version
      }
@@ -18,6 +19,8 @@ resource "azurerm_linux_web_app" "main" {
      }
    }
    app_settings = var.web_app.app_settings
+   https_only = true
+   
 
    identity {
      type = "SystemAssigned"
