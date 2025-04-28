@@ -12,5 +12,5 @@ resource "azurerm_private_dns_zone_virtual_network_link" "private_dns_zone_virtu
   name                  = lower("${var.app_name}-${var.environment}-link")
   resource_group_name   = "backend"
   private_dns_zone_name = azurerm_private_dns_zone.private_dns_zone[each.key].name
-  virtual_network_id    = azurerm_virtual_network.virtual_network.id
+  virtual_network_id    = azurerm_virtual_network.main.id
 }
