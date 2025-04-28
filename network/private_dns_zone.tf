@@ -6,11 +6,11 @@ resource "azurerm_private_dns_zone" "private_dns_zone" {
 }
 
 
-# resource "azurerm_private_dns_zone_virtual_network_link" "private_dns_zone_virtual_network_link" {
-#   for_each = local.virtual_network_private_dns_zone
+resource "azurerm_private_dns_zone_virtual_network_link" "private_dns_zone_virtual_network_link" {
+  for_each = local.virtual_network_private_dns_zone
 
-#   name                  = lower("scanbeton-vnet-dns-link")
-#   resource_group_name   = "backend"
-#   private_dns_zone_name = azurerm_private_dns_zone.private_dns_zone[each.key].name
-#   virtual_network_id    = azurerm_virtual_network.virtual_network.id
-# }
+  name                  = lower("${var.app_name}-${var.environment}-link")
+  resource_group_name   = "backend"
+  private_dns_zone_name = azurerm_private_dns_zone.private_dns_zone[each.key].name
+  virtual_network_id    = azurerm_virtual_network.virtual_network.id
+}
