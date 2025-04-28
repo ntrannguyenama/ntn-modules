@@ -65,12 +65,11 @@ module "key_vault" {
   location               = var.location
   resource_group_name    = module.resource_group.name
   admin_object_ids       = var.key_vault_admin_ids
-  subnet_id              = var.create_private_endpoints ? module.network.subnet_ids["backend"] : null
+  subnet_id              = module.network.subnet_ids["backend"]
   create_private_endpoint = true
   tenant_id              = data.azurerm_client_config.current.tenant_id
   object_id              = data.azurerm_client_config.current.object_id
   key_vault = var.key_vault
-
   tags = local.tags
 }
 
