@@ -44,6 +44,10 @@ variable "subnets" {
     {
       name           = "backend"
       address_prefix = "10.0.2.0/24"
+    },
+    {
+      name = "endpoint"
+      address_prefix = "10.0.3.0/27"
     }
   ]
 }
