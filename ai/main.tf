@@ -45,8 +45,16 @@ resource "azurerm_cognitive_account" "speech_service" {
   location            = var.location
   resource_group_name = var.resource_group_name
 
+  dynamic_throttling_enabled = false
+  fqdns = []
+
+  network_acls {
+    default_action = "Allow"
+    ip_rules       = []
+  }
+
   kind     = "SpeechServices"
-  sku_name = "S0"
+  sku_name = "F0"
 
   tags = {
     environment = "demo"
