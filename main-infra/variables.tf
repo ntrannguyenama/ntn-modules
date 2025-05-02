@@ -90,6 +90,10 @@ variable "dns_zone" {
   type = any
 }
 
+variable "ai" {
+  type = any
+}
+
 variable "nsg_rules" {
   type = list(object({
     name                       = string

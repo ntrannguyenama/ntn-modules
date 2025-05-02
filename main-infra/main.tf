@@ -16,6 +16,14 @@ module "naming_app_service" {
   resource_type = "app"
 }
 
+module "naming_speech" {
+  source        = "../naming"
+  app_name      = var.app_name
+  environment   = var.environment
+  suffix        = null
+  resource_type = "speech"
+}
+
 module "naming_app_service_plan" {
   source        = "../naming"
   app_name      = var.app_name
@@ -133,6 +141,19 @@ module "database" {
   administrator_login           = random_string.sql_admin_username.result
   administrator_login_password  = random_password.sql_admin_password.result
   sql = var.sql
+  tags                         = local.tags
+}
+
+module "ai" {
+  source = "../ai"
+
+  app_name                      = var.app_name
+  environment                   = var.environment
+  location                      = local.location
+  naming_speech = module.naming_speech
+  resource_group_name           = module.resource_group.name
+  subnet_id                     = module.network.subnet_ids["backend"]
+  ai = var.ai
   tags                         = local.tags
 }
 /*
