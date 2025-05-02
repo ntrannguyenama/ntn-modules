@@ -48,11 +48,6 @@ resource "azurerm_cognitive_account" "speech_service" {
   dynamic_throttling_enabled = false
   fqdns = []
 
-  network_acls {
-    default_action = "Allow"
-    ip_rules       = []
-  }
-
   kind     = "SpeechServices"
   sku_name = "F0"
 
