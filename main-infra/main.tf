@@ -16,14 +16,6 @@ module "naming_app_service" {
   resource_type = "app"
 }
 
-module "naming_speech" {
-  source        = "../naming"
-  app_name      = var.app_name
-  environment   = var.environment
-  suffix        = null
-  resource_type = "speech"
-}
-
 module "naming_app_service_plan" {
   source        = "../naming"
   app_name      = var.app_name
@@ -150,7 +142,6 @@ module "ai" {
   app_name                      = var.app_name
   environment                   = var.environment
   location                      = local.location
-  naming_speech = module.naming_speech
   resource_group_name           = module.resource_group.name
   tags                         = local.tags
 }

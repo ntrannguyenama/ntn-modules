@@ -13,11 +13,6 @@ variable "suffix" {
   default = null
 }
 
-variable "naming_speech" {
-  description = "Name of speech"
-  type = string
-}
-
 variable "resource_group_name" {
   description = "Name of the resource group"
   type        = string

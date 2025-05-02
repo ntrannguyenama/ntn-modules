@@ -7,6 +7,16 @@ module "naming_openai" {
   resource_type = "openai"
 }
 
+
+module "naming_speech" {
+  source        = "../naming"
+  app_name      = var.app_name
+  environment   = var.environment
+  suffix        = null
+  resource_type = "speech"
+}
+
+
 resource "azurerm_cognitive_account" "openai" {
   name                = module.naming_openai.resource_name
   location            = var.location
@@ -23,7 +33,7 @@ resource "azurerm_cognitive_account" "openai" {
 
 
 resource "azurerm_cognitive_account" "speech_service" {
-  name                = var.naming_speech
+  name                = module.naming_speech.resource_name
   location            = azurerm_resource_group.speech_rg.location
   resource_group_name = azurerm_resource_group.speech_rg.name
 
