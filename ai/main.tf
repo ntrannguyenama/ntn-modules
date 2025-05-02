@@ -16,6 +16,14 @@ module "naming_speech" {
   resource_type = "speech"
 }
 
+module "naming_search" {
+  source        = "../naming"
+  app_name      = var.app_name
+  environment   = var.environment
+  suffix        = null
+  resource_type = "search"
+}
+
 
 resource "azurerm_cognitive_account" "openai" {
   name                = module.naming_openai.resource_name
@@ -54,5 +62,17 @@ resource "azurerm_cognitive_account" "speech_service" {
   tags = {
     environment = "demo"
     service     = "speech"
+  }
+}
+
+resource "azurerm_search_service" "main" {
+  name                = module.naming_search.resource_name
+  resource_group_name = var.resource_group_name
+  location            = var.location
+  sku                = var.cognitive_search_sku
+  tags               = var.tags
+
+  identity {
+    type = "SystemAssigned"
   }
 }
