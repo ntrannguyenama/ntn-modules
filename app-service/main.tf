@@ -53,5 +53,5 @@ resource "azurerm_linux_web_app" "main" {
  resource "azurerm_role_assignment" "kv_admin_role" {
   scope                = var.key_vault_id
   role_definition_name = "Key Vault Administrator"
-  principal_id         = azurerm_linux_web_app.my_app.identity[0].principal_id
+  principal_id         = azurerm_linux_web_app.main.identity[0].principal_id
 }
