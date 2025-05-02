@@ -64,15 +64,3 @@ resource "azurerm_cognitive_account" "speech_service" {
     service     = "speech"
   }
 }
-
-resource "azurerm_search_service" "main" {
-  name                = module.naming_search.resource_name
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  sku                = "free"
-  tags               = var.tags
-
-  identity {
-    type = "SystemAssigned"
-  }
-}
