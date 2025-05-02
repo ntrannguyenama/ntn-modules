@@ -34,8 +34,8 @@ resource "azurerm_cognitive_account" "openai" {
 
 resource "azurerm_cognitive_account" "speech_service" {
   name                = module.naming_speech.resource_name
-  location            = azurerm_resource_group.speech_rg.location
-  resource_group_name = azurerm_resource_group.speech_rg.name
+  location            = var.location
+  resource_group_name = var.resource_group_name
 
   kind     = "SpeechServices"
   sku_name = "S0"
