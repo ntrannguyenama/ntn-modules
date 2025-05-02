@@ -152,8 +152,6 @@ module "ai" {
   location                      = local.location
   naming_speech = module.naming_speech
   resource_group_name           = module.resource_group.name
-  subnet_id                     = module.network.subnet_ids["backend"]
-  ai = var.ai
   tags                         = local.tags
 }
 /*
