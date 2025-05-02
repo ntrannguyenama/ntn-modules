@@ -26,6 +26,14 @@ resource "azurerm_cognitive_account" "openai" {
   tags                = var.tags
   custom_subdomain_name = module.naming_openai.resource_name
 
+  dynamic_throttling_enabled = false
+  fqdns = []
+
+  network_acls {
+    default_action = "Allow"
+    ip_rules       = []
+  }
+
   identity {
     type = "SystemAssigned"
   }
