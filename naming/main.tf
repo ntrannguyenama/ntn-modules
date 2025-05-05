@@ -39,7 +39,8 @@ locals {
     role   = "role"  # Role Assignment
     openai = "oai"   # Azure OpenAI Service
     search = "srch"  # Azure Cognitive Search
-    speech = "speech"
+    speech = "speech" # Azure Speech
+    translator = "transl" # Azure Translator
   }
 
   resource_name = "${var.app_name}-${var.environment}-${lookup(local.resource_types, var.resource_type)}${var.suffix != null ? "-${var.suffix}" : ""}"
