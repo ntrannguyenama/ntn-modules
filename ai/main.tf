@@ -59,6 +59,11 @@ resource "azurerm_cognitive_account" "speech_service" {
   kind     = "SpeechServices"
   sku_name = "F0"
 
+  network_acls {
+    default_action = "Allow"
+    ip_rules       = []
+  }
+
   tags = {
     environment = "demo"
     service     = "speech"
