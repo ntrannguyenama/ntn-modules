@@ -10,7 +10,7 @@ module "naming_translator" {
 resource "azurerm_cognitive_account" "translator" {
   name                = module.naming_translator
   location            = var.location
-  resource_group_name = var.name
+  resource_group_name = var.resource_group_name
   kind                = "TextTranslation"
   sku_name            = "S0"
 
