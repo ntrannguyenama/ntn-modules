@@ -63,7 +63,7 @@ resource "azurerm_cognitive_account" "speech_service" {
 
   network_acls {
     default_action = "Allow"
-    ip_rules       = []
+    ip_rules       = [""]
   }
 
   tags = {
