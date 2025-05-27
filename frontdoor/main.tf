@@ -41,7 +41,7 @@ resource "azurerm_cdn_frontdoor_origin_group" "backend" {
 }
 
 # Define the Origin (equivalent to backend)
-resource "azurerm_cdn_frontdoor_origin" "origin" {
+resource "azurerm_cdn_frontdoor_origin" "backend" {
   name                           = "webapp-backend"
   cdn_frontdoor_origin_group_id  = azurerm_cdn_frontdoor_origin_group.backend.id
   enabled                        = true
@@ -76,7 +76,7 @@ resource "azurerm_cdn_frontdoor_origin_group" "frontend" {
 }
 
 # Define the Origin (equivalent to backend)
-resource "azurerm_cdn_frontdoor_origin" "origin" {
+resource "azurerm_cdn_frontdoor_origin" "frontend" {
   name                           = "storage-frontend"
   cdn_frontdoor_origin_group_id  = azurerm_cdn_frontdoor_origin_group.frontend.id
   enabled                        = true
