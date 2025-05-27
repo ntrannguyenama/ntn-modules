@@ -20,7 +20,7 @@ resource "azurerm_cdn_frontdoor_profile" "frontdoor" {
 # }
 
 # # Define the Origin Group (equivalent to backend pool)
-resource "azurerm_cdn_frontdoor_origin_group" "origin_group" {
+resource "azurerm_cdn_frontdoor_origin_group" "backend" {
   name                     = "webapp-backend"
   cdn_frontdoor_profile_id = azurerm_cdn_frontdoor_profile.frontdoor.id
 
@@ -43,7 +43,42 @@ resource "azurerm_cdn_frontdoor_origin_group" "origin_group" {
 # Define the Origin (equivalent to backend)
 resource "azurerm_cdn_frontdoor_origin" "origin" {
   name                           = "webapp-backend"
-  cdn_frontdoor_origin_group_id  = azurerm_cdn_frontdoor_origin_group.origin_group.id
+  cdn_frontdoor_origin_group_id  = azurerm_cdn_frontdoor_origin_group.backend.id
+  enabled                        = true
+  certificate_name_check_enabled = false
+  host_name                      = "scanbetonama-dev-app.azurewebsites.net"
+  origin_host_header             = "scanbetonama-dev-app.azurewebsites.net"
+  http_port                      = 80
+  https_port                     = 443
+  priority                       = 1
+  weight                         = 1000
+}
+
+# # Define the Origin Group (equivalent to backend pool)
+resource "azurerm_cdn_frontdoor_origin_group" "frontend" {
+  name                     = "storage-frontend"
+  cdn_frontdoor_profile_id = azurerm_cdn_frontdoor_profile.frontdoor.id
+
+  # Load balancing settings
+  load_balancing {
+    sample_size                        = 4
+    successful_samples_required         = 3
+    additional_latency_in_milliseconds = 50 # Adjust as needed
+  }
+
+  # Health probe settings
+  health_probe {
+    path                = "/*"
+    protocol            = "Http"
+    interval_in_seconds = 100
+    request_type        = "HEAD" # Optional: Use HEAD for lighter probes
+  }
+}
+
+# Define the Origin (equivalent to backend)
+resource "azurerm_cdn_frontdoor_origin" "origin" {
+  name                           = "storage-frontend"
+  cdn_frontdoor_origin_group_id  = azurerm_cdn_frontdoor_origin_group.frontend.id
   enabled                        = true
   certificate_name_check_enabled = false
   host_name                      = "scanbetonama-dev-app.azurewebsites.net"
