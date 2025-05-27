@@ -59,12 +59,12 @@ resource "azurerm_cognitive_account" "speech_service" {
   kind     = "SpeechServices"
   sku_name = "F0"
 
-  custom_subdomain_name = "speechcustomdomain"
+  # custom_subdomain_name = "speechcustomdomain"
 
-  network_acls {
-    default_action = "Allow"
-    ip_rules       = []
-  }
+  # network_acls {
+  #   default_action = "Allow"
+  #   ip_rules       = []
+  # }
 
   tags = {
     environment = "demo"
