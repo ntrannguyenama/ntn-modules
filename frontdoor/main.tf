@@ -90,7 +90,7 @@ resource "azurerm_cdn_frontdoor_origin" "frontend" {
 }
 
 # Define the Route (equivalent to routing rule)
-resource "azurerm_cdn_frontdoor_route" "route" {
+resource "azurerm_cdn_frontdoor_route" "routebackend" {
   name                          = "backend-route"
   cdn_frontdoor_endpoint_id     = azurerm_cdn_frontdoor_endpoint.frontdoor_endpoint.id
   cdn_frontdoor_origin_group_id = azurerm_cdn_frontdoor_origin_group.backend.id
@@ -103,7 +103,7 @@ resource "azurerm_cdn_frontdoor_route" "route" {
 }
 
 # Define the Route (equivalent to routing rule)
-resource "azurerm_cdn_frontdoor_route" "route" {
+resource "azurerm_cdn_frontdoor_route" "routefrontend" {
   name                          = "frontend-route"
   cdn_frontdoor_endpoint_id     = azurerm_cdn_frontdoor_endpoint.frontdoor_endpoint.id
   cdn_frontdoor_origin_group_id = azurerm_cdn_frontdoor_origin_group.frontend.id
