@@ -81,8 +81,8 @@ resource "azurerm_cdn_frontdoor_origin" "frontend" {
   cdn_frontdoor_origin_group_id  = azurerm_cdn_frontdoor_origin_group.frontend.id
   enabled                        = true
   certificate_name_check_enabled = false
-  host_name                      = "scanbetonama-dev-app.azurewebsites.net"
-  origin_host_header             = "scanbetonama-dev-app.azurewebsites.net"
+  host_name                      = "https://scanbetondevsafile.z6.web.core.windows.net/"
+  origin_host_header             = "https://scanbetondevsafile.z6.web.core.windows.net/"
   http_port                      = 80
   https_port                     = 443
   priority                       = 1
