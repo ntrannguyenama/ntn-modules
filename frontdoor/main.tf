@@ -13,11 +13,11 @@ resource "azurerm_cdn_frontdoor_profile" "frontdoor" {
   sku_name            = "Standard_AzureFrontDoor" # Use "Premium_AzureFrontDoor" for Premium tier if needed
 }
 
-# # Define the Front Door Endpoint
-# resource "azurerm_cdn_frontdoor_endpoint" "frontdoor_endpoint" {
-#   name                     = "scanbeton-frontdoor-endpoint"
-#   cdn_frontdoor_profile_id = azurerm_cdn_frontdoor_profile.frontdoor.id
-# }
+# Define the Front Door Endpoint
+resource "azurerm_cdn_frontdoor_endpoint" "frontdoor_endpoint" {
+  name                     = "scanbeton-frontdoor-endpoint"
+  cdn_frontdoor_profile_id = azurerm_cdn_frontdoor_profile.frontdoor.id
+}
 
 # # Define the Origin Group (equivalent to backend pool)
 resource "azurerm_cdn_frontdoor_origin_group" "backend" {
@@ -89,18 +89,31 @@ resource "azurerm_cdn_frontdoor_origin" "frontend" {
   weight                         = 1000
 }
 
-# # Define the Route (equivalent to routing rule)
-# resource "azurerm_cdn_frontdoor_route" "route" {
-#   name                          = "backend-route"
-#   cdn_frontdoor_endpoint_id     = azurerm_cdn_frontdoor_endpoint.frontdoor_endpoint.id
-#   cdn_frontdoor_origin_group_id = azurerm_cdn_frontdoor_origin_group.origin_group.id
-#   cdn_frontdoor_origin_ids      = [azurerm_cdn_frontdoor_origin.origin.id]
+# Define the Route (equivalent to routing rule)
+resource "azurerm_cdn_frontdoor_route" "route" {
+  name                          = "backend-route"
+  cdn_frontdoor_endpoint_id     = azurerm_cdn_frontdoor_endpoint.frontdoor_endpoint.id
+  cdn_frontdoor_origin_group_id = azurerm_cdn_frontdoor_origin_group.backend.id
+  cdn_frontdoor_origin_ids      = [azurerm_cdn_frontdoor_origin.origin.id]
 
-#   patterns_to_match             = ["/*"]
-#   supported_protocols           = ["Http", "Https"]
-#   forwarding_protocol           = "MatchRequest"
-#   link_to_default_domain        = true # Links the route to the default endpoint domain
-# }
+  patterns_to_match             = ["/api"]
+  supported_protocols           = ["Http", "Https"]
+  forwarding_protocol           = "MatchRequest"
+  link_to_default_domain        = true # Links the route to the default endpoint domain
+}
+
+# Define the Route (equivalent to routing rule)
+resource "azurerm_cdn_frontdoor_route" "route" {
+  name                          = "frontend-route"
+  cdn_frontdoor_endpoint_id     = azurerm_cdn_frontdoor_endpoint.frontdoor_endpoint.id
+  cdn_frontdoor_origin_group_id = azurerm_cdn_frontdoor_origin_group.frontend.id
+  cdn_frontdoor_origin_ids      = [azurerm_cdn_frontdoor_origin.origin.id]
+
+  patterns_to_match             = ["/*"]
+  supported_protocols           = ["Http", "Https"]
+  forwarding_protocol           = "MatchRequest"
+  link_to_default_domain        = true # Links the route to the default endpoint domain
+}
 
 # # Optional: Output the Front Door hostname for reference
 # output "frontdoor_hostname" {
