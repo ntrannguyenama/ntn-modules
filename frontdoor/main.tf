@@ -6,60 +6,68 @@ module "naming_front_door" {
   resource_type = "frontdoor"
 }
 
-resource "azurerm_frontdoor" "frontdoor" {
+# Define the Azure Front Door Profile
+resource "azurerm_cdn_frontdoor_profile" "frontdoor" {
   name                = module.naming_front_door.resource_name
   resource_group_name = var.resource_group_name
-  friendly_name       = "ScanBeton-Front-Door"
-
-  # Définir le groupe d'origines (backend pool)
-  backend_pool {
-    name                 = "storage-frontend"
-    load_balancing_name  = "dynamic-weight-balancing"
-    health_probe_name    = "test1"
-
-    # Définir un backend
-    backend {
-      address     = "scanbeton-backend1.com"
-      host_header = "scanbeton-backend1.com"
-      priority    = 1
-      weight      = 50
-      http_port   = 80
-      https_port  = 443
-    }
-  }
-
-  # Définir les points de terminaison frontend (URL qui reçoivent les requêtes)
-  frontend_endpoint {
-    name      = "scanbeton-frontdoor-endpoint"
-    host_name = "scanbeton-frontdoor-endpoint-g6g2ewcvafc4hgc9.z01.azurefd.net"
-  }
-
-  # Définir la règle de routage
-  routing_rule {
-    name               = "example-routing-rule"
-    accepted_protocols = ["Https", "Http"]
-
-    forwarding_configuration {
-      forwarding_protocol = "MatchRequest"
-      backend_pool_name   = "storage-frontend"  # Utilisation du nom du backend pool correct
-    }
-
-    patterns_to_match   = ["/*"]
-    frontend_endpoints  = ["scanbeton-frontdoor-endpoint"]
-  }
-
-  # Health probe pour vérifier l'état des backends
-  backend_pool_health_probe {
-    name                     = "test1"
-    protocol                 = "Https"
-    interval_in_seconds      = 30
-    path                     = "/health"
-  }
-
-  backend_pool_load_balancing {
-    name                     = "dynamic-weight-balancing"  # Nom de la configuration de load balancing
-    sample_size              = 4
-    successful_samples_required = 2
-  }
+  sku_name            = "Standard_AzureFrontDoor" # Use "Premium_AzureFrontDoor" for Premium tier if needed
 }
 
+# # Define the Front Door Endpoint
+# resource "azurerm_cdn_frontdoor_endpoint" "frontdoor_endpoint" {
+#   name                     = "scanbeton-frontdoor-endpoint"
+#   cdn_frontdoor_profile_id = azurerm_cdn_frontdoor_profile.frontdoor.id
+# }
+
+# # Define the Origin Group (equivalent to backend pool)
+# resource "azurerm_cdn_frontdoor_origin_group" "origin_group" {
+#   name                     = "webapp-backend"
+#   cdn_frontdoor_profile_id = azurerm_cdn_frontdoor_profile.frontdoor.id
+
+#   # Load balancing settings
+#   load_balancing {
+#     sample_size                        = 4
+#     successful_samples_required         = 3
+#     additional_latency_in_milliseconds = 50 # Adjust as needed
+#   }
+
+#   # Health probe settings
+#   health_probe {
+#     path                = "/api"
+#     protocol            = "Http"
+#     interval_in_seconds = 100
+#     request_type        = "HEAD" # Optional: Use HEAD for lighter probes
+#   }
+# }
+
+# # Define the Origin (equivalent to backend)
+# resource "azurerm_cdn_frontdoor_origin" "origin" {
+#   name                           = "webapp-origin"
+#   cdn_frontdoor_origin_group_id  = azurerm_cdn_frontdoor_origin_group.origin_group.id
+#   enabled                        = true
+#   certificate_name_check_enabled = false
+#   host_name                      = "scanbetonama-dev-app.azurewebsites.net"
+#   origin_host_header             = "scanbetonama-dev-app.azurewebsites.net"
+#   http_port                      = 80
+#   https_port                     = 443
+#   priority                       = 1
+#   weight                         = 1000
+# }
+
+# # Define the Route (equivalent to routing rule)
+# resource "azurerm_cdn_frontdoor_route" "route" {
+#   name                          = "backend-route"
+#   cdn_frontdoor_endpoint_id     = azurerm_cdn_frontdoor_endpoint.frontdoor_endpoint.id
+#   cdn_frontdoor_origin_group_id = azurerm_cdn_frontdoor_origin_group.origin_group.id
+#   cdn_frontdoor_origin_ids      = [azurerm_cdn_frontdoor_origin.origin.id]
+
+#   patterns_to_match             = ["/*"]
+#   supported_protocols           = ["Http", "Https"]
+#   forwarding_protocol           = "MatchRequest"
+#   link_to_default_domain        = true # Links the route to the default endpoint domain
+# }
+
+# # Optional: Output the Front Door hostname for reference
+# output "frontdoor_hostname" {
+#   value = azurerm_cdn_frontdoor_endpoint.frontdoor_endpoint.host_name
+# }
