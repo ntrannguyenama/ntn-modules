@@ -11,6 +11,11 @@ resource "azurerm_frontdoor" "frontdoor" {
   resource_group_name = var.resource_group_name
   friendly_name       = "ScanBeton-Front-Door"
 
+    frontend_endpoint {
+    name      = "scanbeton-frontdoor-endpoint"
+    host_name = "scanbeton-frontdoor-endpoint-g6g2ewcvafc4hgc9.z01.azurefd.net"
+  }
+
   # Définir le groupe d'origines (backend pool)
   backend_pool {
     name                 = "storage-frontend"
@@ -37,12 +42,6 @@ resource "azurerm_frontdoor" "frontdoor" {
     }
   }
 
-  # Définir les points de terminaison frontend (URL qui reçoivent les requêtes)
-  frontend_endpoint {
-    name      = "scanbeton-frontdoor-endpoint"
-    host_name = "scanbeton-frontdoor-endpoint-g6g2ewcvafc4hgc9.z01.azurefd.net"
-  }
-
   # Définir la règle de routage
   routing_rule {
     name               = "example-routing-rule"
@@ -50,11 +49,13 @@ resource "azurerm_frontdoor" "frontdoor" {
 
     forwarding_configuration {
       forwarding_protocol = "MatchRequest"
-      backend_pool_name   = "storage-frontend"  # Utilisation du nom du backend pool correct
+      backend_pool_name   = "storage-frontend"
     }
 
     patterns_to_match   = ["/*"]
-    frontend_endpoints  = [azurerm_frontdoor.frontdoor.frontend_endpoint[0].id]
+
+    # Référence au frontend_endpoint séparé
+    frontend_endpoints  = [azurerm_frontdoor_frontend_endpoint.example_frontend_endpoint.id]
   }
 
   backend_pool_health_probe {
@@ -65,3 +66,11 @@ resource "azurerm_frontdoor" "frontdoor" {
     name = "test2"
   }
 }
+
+# Définir le frontend endpoint séparément
+resource "azurerm_frontdoor_frontend_endpoint" "example_frontend_endpoint" {
+  name      = "scanbeton-frontdoor-endpoint"
+  host_name = "scanbeton-frontdoor-endpoint-g6g2ewcvafc4hgc9.z01.azurefd.net"
+  frontdoor_id = azurerm_frontdoor.frontdoor.id
+}
+
