@@ -14,7 +14,7 @@ resource "azurerm_frontdoor" "frontdoor" {
   # Définir le groupe d'origines (backend pool)
   backend_pool {
     name                 = "storage-frontend"
-    load_balancing_name  = "aa"
+    load_balancing_name  = "dynamic-weight-balancing"
     health_probe_name    = "bb"
 
     # Définir un backend
@@ -22,15 +22,6 @@ resource "azurerm_frontdoor" "frontdoor" {
       address     = "scanbeton-backend1.com"
       host_header = "scanbeton-backend1.com"
       priority    = 1
-      weight      = 50
-      http_port   = 80
-      https_port  = 443
-    }
-
-    backend {
-      address     = "scanbeton-backend2.com"
-      host_header = "scanbeton-backend2.com"
-      priority    = 2
       weight      = 50
       http_port   = 80
       https_port  = 443
