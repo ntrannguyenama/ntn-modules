@@ -94,7 +94,7 @@ resource "azurerm_cdn_frontdoor_route" "routebackend" {
   name                          = "backend-route"
   cdn_frontdoor_endpoint_id     = azurerm_cdn_frontdoor_endpoint.frontdoor_endpoint.id
   cdn_frontdoor_origin_group_id = azurerm_cdn_frontdoor_origin_group.backend.id
-  cdn_frontdoor_origin_ids      = [azurerm_cdn_frontdoor_origin.origin.id]
+  cdn_frontdoor_origin_ids      = [azurerm_cdn_frontdoor_origin.backend.id]
 
   patterns_to_match             = ["/api"]
   supported_protocols           = ["Http", "Https"]
@@ -107,7 +107,7 @@ resource "azurerm_cdn_frontdoor_route" "routefrontend" {
   name                          = "frontend-route"
   cdn_frontdoor_endpoint_id     = azurerm_cdn_frontdoor_endpoint.frontdoor_endpoint.id
   cdn_frontdoor_origin_group_id = azurerm_cdn_frontdoor_origin_group.frontend.id
-  cdn_frontdoor_origin_ids      = [azurerm_cdn_frontdoor_origin.origin.id]
+  cdn_frontdoor_origin_ids      = [azurerm_cdn_frontdoor_origin.frontend.id]
 
   patterns_to_match             = ["/*"]
   supported_protocols           = ["Http", "Https"]
