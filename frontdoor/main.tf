@@ -53,6 +53,9 @@ resource "azurerm_frontdoor" "frontdoor" {
   }
 
   backend_pool_load_balancing {
-    name = "test2"
+    name                     = "dynamic-weight-balancing"  # Nom de la configuration de load balancing
+    sample_size              = 4
+    successful_samples_required = 2
   }
 }
+
