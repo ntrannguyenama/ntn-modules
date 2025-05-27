@@ -81,8 +81,8 @@ resource "azurerm_cdn_frontdoor_origin" "frontend" {
   cdn_frontdoor_origin_group_id  = azurerm_cdn_frontdoor_origin_group.frontend.id
   enabled                        = true
   certificate_name_check_enabled = false
-  host_name                      = "scanbetondevsafile.z6.web.core.windows.net"
-  origin_host_header             = "scanbetondevsafile.z6.web.core.windows.net"
+  host_name                      = "scanbetonamadevst.z6.web.core.windows.net"
+  origin_host_header             = "scanbetonamadevst.z6.web.core.windows.net"
   http_port                      = 80
   https_port                     = 443
   priority                       = 1
