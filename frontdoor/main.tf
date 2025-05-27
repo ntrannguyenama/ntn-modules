@@ -47,8 +47,15 @@ resource "azurerm_frontdoor" "frontdoor" {
     name               = "example-routing-rule"
     accepted_protocols = ["Https", "Http"]
 
+      forwarding_configuration {
+        forwarding_protocol = "MatchRequest"
+      backend_pool_name   = "exampleBackendBing"
+      }
+
     patterns_to_match = ["/*"]
     frontend_endpoints = []
+
+
   }
 
   backend_pool_health_probe {
