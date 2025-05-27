@@ -39,8 +39,8 @@ resource "azurerm_frontdoor" "frontdoor" {
 
   # Définir les points de terminaison frontend (URL qui reçoivent les requêtes)
   frontend_endpoint {
-    name      = "www.scanbeton.com"
-    host_name = "www.scanbeton.com"
+    name      = "aa"
+    host_name = "bb"
   }
 
   routing_rule {
