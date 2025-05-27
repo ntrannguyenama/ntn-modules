@@ -15,7 +15,7 @@ resource "azurerm_frontdoor" "frontdoor" {
   backend_pool {
     name                 = "storage-frontend"
     load_balancing_name  = "dynamic-weight-balancing"
-    health_probe_name    = "bb"
+    health_probe_name    = "test1"
 
     # Définir un backend
     backend {
@@ -48,8 +48,12 @@ resource "azurerm_frontdoor" "frontdoor" {
     frontend_endpoints  = ["scanbeton-frontdoor-endpoint"]
   }
 
+  # Health probe pour vérifier l'état des backends
   backend_pool_health_probe {
-    name = "test1"
+    name                     = "test1"
+    protocol                 = "Https"
+    interval_in_seconds      = 30
+    path                     = "/health"
   }
 
   backend_pool_load_balancing {
