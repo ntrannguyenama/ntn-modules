@@ -47,8 +47,8 @@ resource "azurerm_frontdoor" "frontdoor" {
     name               = "example-routing-rule"
     accepted_protocols = ["Https", "Http"]
 
-    patterns_to_match = "/*"
-    frontend_endpoints = "scanbeton-frontdoor-endpoint-g6g2ewcvafc4hgc9.z01.azurefd.net"
+    patterns_to_match = ["/*"]
+    frontend_endpoints = []
   }
 
   backend_pool_health_probe {
