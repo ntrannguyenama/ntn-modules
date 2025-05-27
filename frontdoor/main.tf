@@ -23,8 +23,8 @@ resource "azurerm_frontdoor" "frontdoor" {
       host_header = "scanbeton-backend1.com"
       priority    = 1
       weight      = 50
-      http_port = "*"
-      https_port = "*"
+      http_port = 80
+      https_port = 443
     }
 
     backend {
@@ -32,8 +32,8 @@ resource "azurerm_frontdoor" "frontdoor" {
       host_header = "scanbeton-backend2.com"
       priority    = 2
       weight      = 50
-        http_port = "*"
-      https_port = "*"
+        http_port = 80
+      https_port = 443
     }
   }
 
@@ -45,10 +45,10 @@ resource "azurerm_frontdoor" "frontdoor" {
 
   routing_rule {
     name               = "example-routing-rule"
-    accepted_protocols = ["Https"]
+    accepted_protocols = ["Https", "Http"]
 
-    patterns_to_match = ""
-    frontend_endpoints = ""
+    patterns_to_match = "/*"
+    frontend_endpoints = "scanbeton-frontdoor-endpoint-g6g2ewcvafc4hgc9.z01.azurefd.net"
   }
 
   backend_pool_health_probe {
