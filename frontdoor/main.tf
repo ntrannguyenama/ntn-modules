@@ -13,9 +13,9 @@ resource "azurerm_frontdoor" "frontdoor" {
 
   # Définir le groupe d'origines (backend pool)
   backend_pool {
-    name = "storage-frontend"
-    load_balancing_name = "aa"
-    health_probe_name = "bb"
+    name                 = "storage-frontend"
+    load_balancing_name  = "aa"
+    health_probe_name    = "bb"
 
     # Définir un backend
     backend {
@@ -23,8 +23,8 @@ resource "azurerm_frontdoor" "frontdoor" {
       host_header = "scanbeton-backend1.com"
       priority    = 1
       weight      = 50
-      http_port = 80
-      https_port = 443
+      http_port   = 80
+      https_port  = 443
     }
 
     backend {
@@ -32,8 +32,8 @@ resource "azurerm_frontdoor" "frontdoor" {
       host_header = "scanbeton-backend2.com"
       priority    = 2
       weight      = 50
-        http_port = 80
-      https_port = 443
+      http_port   = 80
+      https_port  = 443
     }
   }
 
@@ -43,19 +43,18 @@ resource "azurerm_frontdoor" "frontdoor" {
     host_name = "scanbeton-frontdoor-endpoint-g6g2ewcvafc4hgc9.z01.azurefd.net"
   }
 
+  # Définir la règle de routage
   routing_rule {
     name               = "example-routing-rule"
     accepted_protocols = ["Https", "Http"]
 
-      forwarding_configuration {
-        forwarding_protocol = "MatchRequest"
-      backend_pool_name   = "exampleBackendBing"
-      }
+    forwarding_configuration {
+      forwarding_protocol = "MatchRequest"
+      backend_pool_name   = "storage-frontend"  # Utilisation du nom du backend pool correct
+    }
 
-    patterns_to_match = ["/*"]
-    frontend_endpoints = []
-
-
+    patterns_to_match   = ["/*"]
+    frontend_endpoints  = []
   }
 
   backend_pool_health_probe {
