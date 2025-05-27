@@ -54,7 +54,7 @@ resource "azurerm_frontdoor" "frontdoor" {
     }
 
     patterns_to_match   = ["/*"]
-    frontend_endpoints  = []
+    frontend_endpoints  = [azurerm_frontdoor.frontdoor.frontend_endpoint[0].id]
   }
 
   backend_pool_health_probe {
